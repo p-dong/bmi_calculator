@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'input_page.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
 
 void main() => runApp(BMICalculator());
 
