@@ -19,6 +19,7 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   int height = 180;
+  int weight = 60;
   Gender selectedGender = Gender.none;
   @override
   Widget build(BuildContext context) {
@@ -125,11 +126,45 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    onPress: () {},
-                    colour: kActiveCardColor,
-                    cardChild:
-                        IconContent(icon: FontAwesomeIcons.a, label: 'nothing'),
-                  ),
+                      onPress: () {},
+                      colour: kActiveCardColor,
+                      cardChild: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'WEIGHT',
+                            style: kLabelTextStyle,
+                          ),
+                          Text(
+                            weight.toString(),
+                            style: kNumberTextStyle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              FloatingActionButton(
+                                backgroundColor: Color(0xFF6EFAEF),
+                                onPressed: null,
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              FloatingActionButton(
+                                backgroundColor: Color(0xFF6EFAEF),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                onPressed: null,
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      )),
                 ),
                 Expanded(
                   child: ReusableCard(
