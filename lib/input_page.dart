@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:bmi_calculator/result_page.dart';
 import 'package:flutter/material.dart';
 import 'reusable_card.dart';
 import 'icon_content.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'constants.dart';
+import 'round_icon_button.dart';
 
 enum Gender {
   male,
@@ -20,6 +22,7 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   int height = 180;
   int weight = 60;
+  int age = 15;
   Gender selectedGender = Gender.none;
   @override
   Widget build(BuildContext context) {
@@ -142,24 +145,21 @@ class _InputPageState extends State<InputPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              FloatingActionButton(
-                                backgroundColor: Color(0xFF6EFAEF),
-                                onPressed: null,
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.black,
-                                ),
+                              RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                },
                               ),
-                              FloatingActionButton(
-                                backgroundColor: Color(0xFF6EFAEF),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                onPressed: null,
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.black,
-                                ),
+                              RoundIconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                },
+                                icon: FontAwesomeIcons.plus,
                               ),
                             ],
                           )
@@ -170,18 +170,63 @@ class _InputPageState extends State<InputPage> {
                   child: ReusableCard(
                     onPress: () {},
                     colour: kActiveCardColor,
-                    cardChild:
-                        IconContent(icon: FontAwesomeIcons.a, label: 'nothing'),
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(() {
+                                    age--;
+                                  });
+                                }),
+                            RoundIconButton(
+                                icon: FontAwesomeIcons.plus,
+                                onPressed: () {
+                                  setState(() {
+                                    age++;
+                                  });
+                                })
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          Container(
-            color: kBottomContainerColor,
-            margin: EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: kBottomContainerHeight,
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultPage(
+                      height: height,
+                      weight: weight,
+                      age: age,
+                      gender: selectedGender == Gender.male ? 'Male' : 'Female',
+                    ),
+                  ));
+            },
+            child: Text(
+              'Calculate',
+              style: TextStyle(fontSize: 25, color: Colors.black),
+            ),
+            style: ElevatedButton.styleFrom(
+                primary: kBottomContainerColor,
+                minimumSize: Size(double.infinity, kBottomContainerHeight)),
           ),
         ],
       ),
